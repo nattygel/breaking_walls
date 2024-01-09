@@ -1,9 +1,8 @@
 #include "colisions.hpp"
-#include "menegger.hpp"
 #include "globals.hpp"
 #include <iostream>
 #include <memory>
-
+#include "physics.hpp"
 
 State Colisions::handle(Ball &ball, std::vector<std::shared_ptr<Brick>>& bricks, Paddle& paddle)
 {
@@ -23,8 +22,8 @@ void Colisions::ball_vs_puddle(Ball &ball, Paddle &paddle)
         float delta = ball.getPosition().x - ball.getGlobalBounds().width/2 -middle_x_paddle;
         new_velocity.second = -new_velocity.second;
         new_velocity.first = new_velocity.first + epsilon * delta;
-        new_velocity = ball.normalize(new_velocity);
-        new_velocity = ball.multyply(new_velocity, ball.get_speed());
+        new_velocity = Physics::normalize(new_velocity);
+        new_velocity = Physics::scalar_multyply(new_velocity, ball.get_magnitude());
         ball.set_velocity(new_velocity);
     }
 }
@@ -33,7 +32,7 @@ void Colisions::ball_vs_brick(Ball &ball, std::vector<std::shared_ptr<Brick>>& b
 {
     for (auto it = bricks.begin(); it != bricks.end();) {
         if (ball.getGlobalBounds().intersects((*it)->getGlobalBounds())) {
-            std::pair<float, float> new_velocity = calculate_rotation(ball.getGlobalBounds(), (*it)->getGlobalBounds(), ball.velocity());
+            std::pair<float, float> new_velocity = Physics::calculate_rotation(ball.getGlobalBounds(), (*it)->getGlobalBounds(), ball.velocity());
             ball.set_velocity(new_velocity);
             if ((*it)->coliding()) {
                it = bricks.erase(it);
@@ -69,41 +68,14 @@ State Colisions::ball_vs_floor(Ball &ball, Paddle& paddle)
     if (ball.getPosition().y > (float)y_resolution) {
         ball.set_velocity(ball.x_velocity(), -ball.y_velocity());
         if (paddle.coliding()) {
-            // return GAME_OVER;
+            return GAME_OVER;
+        } else {
+            ball.stop_move();
+            ball.set_srart_position(paddle.getGlobalBounds());
         }
     }
     return CONTINUE;
 }
-
-std::pair<float, float> Fisics::calculate_rotation(sf::FloatRect ball_bound, sf::FloatRect brick_bound, std::pair<float, float> velocity)
-{
-    std::pair<float, float> new_velocity;
-
-    float overlapTop = ball_bound.top + ball_bound.height - brick_bound.top;
-    float overlapBottom = brick_bound.top + brick_bound.height - ball_bound.top;
-    float overlapLeft = ball_bound.left + ball_bound.width - brick_bound.left;
-    float overlapRight = brick_bound.left + brick_bound.width - ball_bound.left;
-
-    if (overlapTop < overlapBottom && overlapTop < overlapLeft && overlapTop < overlapRight)
-    {
-        new_velocity = std::pair<float, float>(velocity.first, -velocity.second);
-    }
-    else if (overlapBottom < overlapTop && overlapBottom < overlapLeft && overlapBottom < overlapRight)
-    {
-        new_velocity = std::pair<float, float>(velocity.first, -velocity.second);
-    }
-    else if (overlapLeft < overlapTop && overlapLeft < overlapBottom && overlapLeft < overlapRight)
-    {
-        new_velocity = std::pair<float, float>(-velocity.first, velocity.second);
-    }
-    else if (overlapRight < overlapTop && overlapRight < overlapBottom && overlapRight < overlapLeft)
-    {
-        new_velocity = std::pair<float, float>(-velocity.first, velocity.second);
-    }
-
-    return new_velocity;
-}
-
 
 
         // std::cout << "paddle.getPosition().x "<< paddle.getPosition().x << '\n';

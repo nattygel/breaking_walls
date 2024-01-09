@@ -7,7 +7,7 @@
 class Game
 {
 public:
-    void paly();
+    void play();
 
 private:
     Screen* change_state(State state);

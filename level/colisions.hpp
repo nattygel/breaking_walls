@@ -7,14 +7,8 @@
 #include "brick.hpp"
 #include "objects.hpp"
 
-class Fisics
-{
-public:
-    std::pair<float, float> calculate_rotation(sf::FloatRect ball_bound, sf::FloatRect brick_bound, std::pair<float, float> velocity);
 
-};
-
-class Colisions : public Fisics
+class Colisions
 {
 public:
     State handle(Ball& ball, std::vector<std::shared_ptr<Brick>>& bricks, Paddle& paddle);

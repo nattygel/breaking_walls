@@ -12,6 +12,8 @@ public:
     void reduce_life();
     void move_right();
     void move_left();
+    float get_speed();
 private:
     int m_life = 3;
+    float m_speed = 35.f;
 };

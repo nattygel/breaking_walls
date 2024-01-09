@@ -1,45 +1,48 @@
 #include "events.hpp"
 #include "globals.hpp"
+#include "ball.hpp"
 
 
-void Events::check(sf::Event event, sf::RenderWindow& window, Paddle& paddle)
+void Level_events::check(sf::Event event, sf::RenderWindow& window, Paddle& paddle, Ball& ball)
 {
-    if (esc(event, window) || arrows(event, window, paddle) || space(event, window))
+    esc(window);
+    if (arrows(paddle, ball) || space(ball))
         return ;
     // return CONTINUE;
 }
 
-bool Events::esc(sf::Event event, sf::RenderWindow& window)
+void Events::esc(sf::RenderWindow& window)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
         window.close();
-        return true;
+        // return true;
     }
-    return false;
+    // return false;
 }
 
-bool Events::arrows(sf::Event event, sf::RenderWindow& window, Paddle& paddle)
+bool Level_events::arrows(Paddle& paddle, Ball& ball)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
         paddle.move_left();
+        ball.static_move(paddle.getGlobalBounds());
         return true;
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
         if (paddle.getPosition().x < (float)x_resolution - paddle.getSize().x) {
             paddle.move_right();
+            ball.static_move(paddle.getGlobalBounds());
         }
         return true;
     }
     return false;
 }
-bool Events::space(sf::Event event, sf::RenderWindow& window)
+bool Level_events::space(Ball& ball)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
-        window.close();
-        return true;
+        ball.start_move();
     }
     return false;
 }

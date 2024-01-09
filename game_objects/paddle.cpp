@@ -8,7 +8,7 @@ Paddle::Paddle()
     float paddle_height = 10.f;
     setSize(sf::Vector2f(paddle_width, paddle_height));
     setFillColor(sf::Color::Blue);
-    setPosition((float)x_resolution/2 - paddle_width/2 ,(float)y_resolution + 10);
+    setPosition((float)x_resolution/2 - paddle_width/2 ,(float)y_resolution - 40);
 }
 
 
@@ -30,19 +30,25 @@ void Paddle::reduce_life()
 
 void Paddle::move_right()
 {
-    move(35.f, 0);
-    if (getPosition().x > (float)x_resolution - getSize().x) {
+    if (getPosition().x + getSize().x + m_speed > (float)x_resolution) {
         setPosition((float)x_resolution - getSize().x, getPosition().y);
+    } else {
+        move(m_speed, 0);
     }
 }
 
 
 void Paddle::move_left()
 {
-    if (getPosition().x > 0) {
-        move(-35.f, 0);
-    }
-    if (getPosition().x < 0) {
+    if (getPosition().x -m_speed > 0) {
+        move(-m_speed, 0);
+    } else {
         setPosition(0, getPosition().y);
     }
 }
+
+float Paddle::get_speed()
+{
+    return m_speed;
+}
+

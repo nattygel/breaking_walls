@@ -1,6 +1,6 @@
 #include "globals.hpp"
 
 
-int x_resolution = 1780;
-int y_resolution = 900;
+int x_resolution = 1650;
+int y_resolution = 880;
 

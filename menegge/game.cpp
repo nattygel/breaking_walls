@@ -5,12 +5,10 @@
 
 
 
-void Game::paly()
+void Game::play()
 {
     sf::RenderWindow window(sf::VideoMode(x_resolution, y_resolution), "breaking_walls!");
     std::shared_ptr<Screen> screen = std::make_shared<Basic_lvel>(window);
-    Colisions colisions;
-
 
     while (window.isOpen())
     {
@@ -21,7 +19,7 @@ void Game::paly()
         case CONTINUE:
             break;
         case GAME_OVER:
-
+            screen = std::make_shared<Game_over_screen>(window);
             break;
         default:
             break;

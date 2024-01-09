@@ -7,17 +7,24 @@ class Ball : public sf::CircleShape
 {
 public:
     Ball(float r = 12, const sf::Color& color = sf::Color::Green);
-    void move1();
+    void normal_move();
     float x_velocity();
     float y_velocity();
     std::pair<float, float> velocity();
     void set_velocity(std::pair<float, float> velocity);
     void set_velocity(float x, float y);
-    std::pair<float, float> normalize(std::pair<float, float> v);
-    std::pair<float, float> multyply(std::pair<float, float> v, float n);
-    float get_speed();
+
+    void static_move(sf::FloatRect paddle_move);
+    float get_magnitude();
+    void set_speed(float speed);
+    void start_move();
+    void stop_move();
+    void set_srart_position(sf::FloatRect paddle_rect);
 
 private:
-    std::pair<float, float> m_velocity = std::pair<float, float>(1.3, 1.3);
-    float m_speed;
+    std::pair<float, float> m_velocity;
+    float m_magnitude;
+    float m_speed = 1;
+    bool m_movement = false;
+
 };

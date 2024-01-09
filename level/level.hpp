@@ -6,7 +6,7 @@
 #include "brick.hpp"
 #include "events.hpp"
 #include "colisions.hpp"
-#include "menegger.hpp"
+#include "creator.hpp"
 #include "globals.hpp"
 
 
@@ -27,7 +27,13 @@ protected:
 
 class Game_over_screen : public Screen
 {
+public:
+    Game_over_screen(sf::RenderWindow& window);
     State run();
+private:
+    Events m_events;
+    sf::Font font;
+    sf::Text gameOverText;
 };
 
 class Level : public Screen
@@ -38,7 +44,7 @@ public:
     virtual State run() = 0;
 
 protected:
-    Events m_events;
+    Level_events m_events;
     Colisions m_colisions;
 };
 
