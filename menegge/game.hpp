@@ -8,9 +8,11 @@ class Game
 {
 public:
     void play();
+    int get_step();
+    void step_up();
 
 private:
     Screen* change_state(State state);
-    void step_up();
     void game_over();
+    int m_step = 1;
 };

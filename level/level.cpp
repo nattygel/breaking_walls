@@ -79,20 +79,19 @@ Basic_lvel::Basic_lvel(sf::RenderWindow& window, int step)
 State Basic_lvel::run()
 {
 
+    State resolt = m_colisions.handle(ball, bricks, paddle);
+    // if (resolt == GAME_OVER) {
+    //     return resolt;
+    // }
+
     sf::Event event;
     while (m_window.pollEvent(event)) {
-        m_events.check(m_window, paddle, ball);
+        resolt = m_events.check(m_window, paddle, ball);
     }
 
-    State resolt = m_colisions.handle(ball, bricks, paddle);
-    if (resolt == GAME_OVER) {
-        return resolt;
-    }
-
-    ball.moving();    
+    ball.normal_move();    
     
     m_window.clear();
-
     m_window.draw(ball);
     m_window.draw(paddle);
     for (const auto& brick : bricks) {
@@ -101,7 +100,7 @@ State Basic_lvel::run()
 
     m_window.display();
 
-    return CONTINUE;
+    return resolt;
 }
 
 void Basic_lvel::Process()

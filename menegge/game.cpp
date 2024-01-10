@@ -2,6 +2,7 @@
 #include "level.hpp"
 #include "globals.hpp"
 #include <memory>
+#include <iostream>
 
 
 
@@ -22,8 +23,23 @@ void Game::play()
         case GAME_OVER:
             screen = std::make_shared<Game_over_screen>(window);
             break;
+        case STEP_UP:
+            std::cout << "step: " << m_step << '\n';
+            step_up();
+            screen = std::make_shared<Basic_lvel>(window, get_step());
+            break;
         default:
             break;
         }
     }
+}
+
+int Game::get_step()
+{
+    return m_step;
+}
+
+void Game::step_up()
+{
+    m_step += 1;
 }

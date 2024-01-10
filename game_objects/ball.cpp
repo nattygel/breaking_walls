@@ -9,7 +9,7 @@ Ball::Ball(float r, const sf::Color& color)
     m_magnitude = 7.5f;
 }
 
-void Ball::moving()
+void Ball::normal_move()
 {
     if (m_movement) {
         this->move(m_velocity.first, m_velocity.second);

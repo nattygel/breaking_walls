@@ -7,7 +7,7 @@ class Ball : public sf::CircleShape
 {
 public:
     Ball(float r = 12, const sf::Color& color = sf::Color::Green);
-    void moving();
+    void normal_move();
     float x_velocity();
     float y_velocity();
     std::pair<float, float> velocity();
