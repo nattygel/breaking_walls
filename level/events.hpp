@@ -18,6 +18,6 @@ class Level_events : Events
 public:
     virtual bool arrows(Paddle& paddle, Ball& ball);
     virtual bool space(Ball& ball);
-    virtual void check(sf::Event event, sf::RenderWindow& window, Paddle& paddle, Ball& ball);
+    virtual void check(sf::RenderWindow& window, Paddle& paddle, Ball& ball);
 
 };

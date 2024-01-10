@@ -33,7 +33,12 @@ std::vector<std::shared_ptr<Brick>> Create_level::create_bricks(int step)
     std::vector<std::shared_ptr<Brick>> bricks;
     for (int i = 0; (float)i < rows; ++i) {
         for (int j = 0; (float)j < columns; ++j) {
-            auto brick = std::make_shared<Strong_brick>(brick_width, brick_height, colors[i]);
+            std::shared_ptr<Brick> brick;
+            if(i % 2 != 0) {
+                brick = std::make_shared<Strong_brick>(brick_width, brick_height, colors[i]);
+            } else {
+                brick = std::make_shared<Normal_brick>(brick_width, brick_height, colors[i]);
+            }
             float y = top_margin + (float)i * (brick_height + brick_margin);
             float x = start_row + (float)j * (brick_width + brick_margin);
             brick->setPosition(x, y);

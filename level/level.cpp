@@ -11,7 +11,7 @@
 
 State Basic_lvel::handle_events(sf::Event event, sf::RenderWindow& window, Paddle& paddle)
 {
-    m_events.check(event, window, paddle, ball);
+    m_events.check(window, paddle, ball);
     return CONTINUE;
 }
 
@@ -70,7 +70,7 @@ Basic_lvel::Basic_lvel(sf::RenderWindow& window, int step)
 {
     paddle = create_paddle();
     ball = create_ball();
-    ball.set_srart_position(paddle.getGlobalBounds());
+    ball.set_strart_position(paddle.getGlobalBounds());
     bricks = create_bricks(step);
     // m_colisions = Colisions();
 }
@@ -81,7 +81,7 @@ State Basic_lvel::run()
 
     sf::Event event;
     while (m_window.pollEvent(event)) {
-        m_events.check(event, m_window, paddle, ball);
+        m_events.check(m_window, paddle, ball);
     }
 
     State resolt = m_colisions.handle(ball, bricks, paddle);
@@ -89,7 +89,7 @@ State Basic_lvel::run()
         return resolt;
     }
 
-    ball.normal_move();    
+    ball.moving();    
     
     m_window.clear();
 

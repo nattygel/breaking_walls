@@ -3,7 +3,7 @@
 #include "ball.hpp"
 
 
-void Level_events::check(sf::Event event, sf::RenderWindow& window, Paddle& paddle, Ball& ball)
+void Level_events::check(sf::RenderWindow& window, Paddle& paddle, Ball& ball)
 {
     esc(window);
     if (arrows(paddle, ball) || space(ball))

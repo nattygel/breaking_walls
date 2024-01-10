@@ -22,5 +22,6 @@ $(APP): $(OBJS)
 clear:
 	rm -f $(APP) $(OBJS)
 
-run: $(APP)
+run: 
+# $(APP)
 	./$(APP)

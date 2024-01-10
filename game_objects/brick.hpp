@@ -16,7 +16,7 @@ public:
     bool coliding() override;
 
 private:
-    int m_life = 3;
+    int m_life = 1;
 };
 
 

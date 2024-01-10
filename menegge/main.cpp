@@ -34,7 +34,7 @@ int main()
         // shape.setFillColor(sf::Color(100, 250, 50));
         // ball.setFillColor(sf::Color(100, 50, 50));
         
-        // ball.normal_move();    
+        // ball.moving();    
         
         // window.clear();
 

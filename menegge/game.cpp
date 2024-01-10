@@ -8,6 +8,7 @@
 void Game::play()
 {
     sf::RenderWindow window(sf::VideoMode(x_resolution, y_resolution), "breaking_walls!");
+    window.setFramerateLimit(60);
     std::shared_ptr<Screen> screen = std::make_shared<Basic_lvel>(window);
 
     while (window.isOpen())

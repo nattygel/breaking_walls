@@ -6,10 +6,10 @@ Ball::Ball(float r, const sf::Color& color)
 {
     setRadius(r);
     setFillColor(color);
-    m_magnitude = 0.4f;
+    m_magnitude = 7.5f;
 }
 
-void Ball::normal_move()
+void Ball::moving()
 {
     if (m_movement) {
         this->move(m_velocity.first, m_velocity.second);
@@ -47,7 +47,7 @@ std::pair<float, float> Ball::velocity()
 void Ball::static_move(sf::FloatRect paddle_bounds)
 {
     if (!m_movement) {
-        set_srart_position(paddle_bounds);
+        set_strart_position(paddle_bounds);
     }
 }
 
@@ -55,6 +55,16 @@ void Ball::static_move(sf::FloatRect paddle_bounds)
 float Ball::get_magnitude()
 {
     return m_magnitude * m_speed;
+}
+
+float Ball::get_speed()
+{
+    return m_speed;
+}
+
+void Ball::set_speed(float speed)
+{
+    m_speed = speed;
 }
 
 void Ball::start_move()
@@ -67,10 +77,10 @@ void Ball::stop_move()
     m_movement = false;
 }
 
-void Ball::set_srart_position(sf::FloatRect paddle_rect)
+void Ball::set_strart_position(sf::FloatRect paddle_rect)
 {
-    float x = paddle_rect.left + paddle_rect.width/2;
-    float y = paddle_rect.top -paddle_rect.height - getRadius() - 10;
+    float x = paddle_rect.left + paddle_rect.width/2 - getRadius();
+    float y = paddle_rect.top -paddle_rect.height - getRadius() - 5;
     setPosition(x, y);
     set_velocity(0.3f, -0.7f);
     // set_speed

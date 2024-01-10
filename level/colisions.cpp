@@ -16,14 +16,13 @@ void Colisions::ball_vs_puddle(Ball &ball, Paddle &paddle)
 {
     if (ball.getGlobalBounds().intersects(paddle.getGlobalBounds())) {
         std::pair<float, float> new_velocity = ball.velocity();
-        float epsilon = 0.002f;
+        float epsilon = 0.008f;
 
         float middle_x_paddle = paddle.getGlobalBounds().left + paddle.getGlobalBounds().width/2;
         float delta = ball.getPosition().x - ball.getGlobalBounds().width/2 -middle_x_paddle;
         new_velocity.second = -new_velocity.second;
         new_velocity.first = new_velocity.first + epsilon * delta;
-        new_velocity = Physics::normalize(new_velocity);
-        new_velocity = Physics::scalar_multyply(new_velocity, ball.get_magnitude());
+        ball.set_speed(ball.get_speed() + 0.01f);
         ball.set_velocity(new_velocity);
     }
 }
@@ -58,7 +57,7 @@ void Colisions::ball_vs_edge(Ball &ball)
         ball.set_velocity(-ball.x_velocity(), ball.y_velocity());
     }
 
-    if (ballPosition.x > (float)x_resolution) {
+    if (ballPosition.x + ball.getGlobalBounds().width > (float)x_resolution) {
         ball.set_velocity(-ball.x_velocity(), ball.y_velocity());
     }
 }
@@ -71,7 +70,7 @@ State Colisions::ball_vs_floor(Ball &ball, Paddle& paddle)
             return GAME_OVER;
         } else {
             ball.stop_move();
-            ball.set_srart_position(paddle.getGlobalBounds());
+            ball.set_strart_position(paddle.getGlobalBounds());
         }
     }
     return CONTINUE;
