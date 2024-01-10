@@ -14,12 +14,12 @@ std::vector<std::shared_ptr<Brick>> Create_level::create_bricks(int step)
         return bricks_step_3();
     } else if (step == 4) {
         return bricks_step_4();
-    // } else if (step == 5) {
-    //     return bricks_step_5();
-    // } else if (step == 6) {
-    //     return bricks_step_6();
-    // } else if (step == 7) {
-    //     return bricks_step_7();
+    } else if (step == 5) {
+        return bricks_step_5();
+    } else if (step == 6) {
+        return bricks_step_6();
+    } else if (step == 7) {
+        return bricks_step_7();
     }
     return bricks_step_1();
 }
