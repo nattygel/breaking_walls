@@ -100,6 +100,10 @@ State Basic_lvel::run()
 
     m_window.display();
 
+    if (bricks.empty()) {
+        resolt = State::STEP_UP;
+    }
+
     return resolt;
 }
 
