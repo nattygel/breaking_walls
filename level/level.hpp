@@ -66,5 +66,6 @@ protected:
     Paddle paddle;
     Ball ball;
     std::vector<std::shared_ptr<Brick>> bricks;
+    void draw();
 };
 
