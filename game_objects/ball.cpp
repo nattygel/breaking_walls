@@ -12,7 +12,7 @@ Ball::Ball(float r, const sf::Color& color)
 void Ball::normal_move()
 {
     if (m_movement) {
-        this->move(m_velocity.first, m_velocity.second);
+        this->move(m_velocity.first * m_speed, m_velocity.second *m_speed);
     }
 }
 

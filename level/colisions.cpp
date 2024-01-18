@@ -16,12 +16,12 @@ void Colisions::ball_vs_puddle(Ball &ball, Paddle &paddle)
 {
     if (ball.getGlobalBounds().intersects(paddle.getGlobalBounds())) {
         std::pair<float, float> new_velocity = ball.velocity();
-        float epsilon = 0.008f;
+        float epsilon = 0.08f;
 
         float middle_x_paddle = paddle.getGlobalBounds().left + paddle.getGlobalBounds().width/2;
         float delta = ball.getPosition().x - ball.getGlobalBounds().width/2 -middle_x_paddle;
         new_velocity.second = -new_velocity.second;
-        new_velocity.first = new_velocity.first + epsilon * delta;
+        new_velocity.first = new_velocity.first/2 + epsilon * delta;
         ball.set_speed(ball.get_speed() + 0.01f);
         ball.set_velocity(new_velocity);
     }

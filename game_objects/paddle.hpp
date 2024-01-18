@@ -15,5 +15,5 @@ public:
     float get_speed();
 private:
     int m_life = 3;
-    float m_speed = 35.f;
+    float m_speed = 20.f;
 };
