@@ -24,23 +24,28 @@ bool Paddle::coliding()
 
 void Paddle::reduce_life()
 {
-    m_life -= 1;
+    if(!m_special){
+        m_life -= 1;
+    }
 }
 
 
 void Paddle::move_right()
 {
-    if (getPosition().x + getSize().x + m_speed > (float)x_resolution) {
-        setPosition((float)x_resolution - getSize().x, getPosition().y);
-    } else {
-        move(m_speed, 0);
-    }
+    // if (getPosition().x < (float)x_resolution - getSize().x) {
+        if (getPosition().x + getSize().x + m_speed > (float)x_resolution) {
+            setPosition((float)x_resolution - getSize().x, getPosition().y);
+        } else {
+            move(m_speed, 0);
+        }
+    // }
 }
 
 
 void Paddle::move_left()
 {
     if (getPosition().x -m_speed > 0) {
+       
         move(-m_speed, 0);
     } else {
         setPosition(0, getPosition().y);

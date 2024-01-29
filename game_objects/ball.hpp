@@ -19,13 +19,13 @@ public:
     float get_speed();
     void set_speed(float speed);
     void start_move();
-    void stop_move();
-    void set_strart_position(sf::FloatRect paddle_rect);
+    void reset(sf::FloatRect paddle_rect);
+    void set_to_paddle_position(sf::FloatRect paddle_rect);
+    std::pair<float, float> new_velocity();
 
 private:
     std::pair<float, float> m_velocity;
-    float m_magnitude;
+    float m_magnitude = 7.5f;
     float m_speed = 1;
     bool m_movement = false;
-
 };

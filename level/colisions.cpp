@@ -15,11 +15,11 @@ State Colisions::handle(Ball &ball, std::vector<std::shared_ptr<Brick>>& bricks,
 void Colisions::ball_vs_puddle(Ball &ball, Paddle &paddle)
 {
     if (ball.getGlobalBounds().intersects(paddle.getGlobalBounds())) {
-        std::pair<float, float> new_velocity = ball.velocity();
         float epsilon = 0.08f;
-
         float middle_x_paddle = paddle.getGlobalBounds().left + paddle.getGlobalBounds().width/2;
         float delta = ball.getPosition().x - ball.getGlobalBounds().width/2 -middle_x_paddle;
+
+        std::pair<float, float> new_velocity = ball.velocity();
         new_velocity.second = -new_velocity.second;
         new_velocity.first = new_velocity.first/2 + epsilon * delta;
         ball.set_speed(ball.get_speed() + 0.01f);
@@ -69,39 +69,8 @@ State Colisions::ball_vs_floor(Ball &ball, Paddle& paddle)
         if (paddle.coliding()) {
             return GAME_OVER;
         } else {
-            ball.stop_move();
-            ball.set_strart_position(paddle.getGlobalBounds());
+            ball.reset(paddle.getGlobalBounds());
         }
     }
     return CONTINUE;
 }
-
-
-        // std::cout << "paddle.getPosition().x "<< paddle.getPosition().x << '\n';
-        // std::cout << "paddle.getPosition().y " << paddle.getPosition().y << '\n';
-        // std::cout << "paddle.getGlobalBounds().width " << paddle.getGlobalBounds().width <<  '\n';
-        // std::cout << "paddle.getGlobalBounds().top " << paddle.getGlobalBounds().top <<  '\n';
-        // std::cout << "paddle.getGlobalBounds().left " << paddle.getGlobalBounds().left <<  '\n';
-        // std::cout << "paddle.getGlobalBounds().height " << paddle.getGlobalBounds().height <<  '\n';
-        // std::cout << "paddle.getGlobalBounds().contains(1,1) " << paddle.getGlobalBounds().contains(1,1) <<  '\n';
-        // std::cout << "paddle.getGlobalBounds()..intersects(paddle.getGlobalBounds()) " << paddle.getGlobalBounds().intersects(paddle.getGlobalBounds()) <<  '\n';
-        // std::cout << "paddle.getPosition().y " << paddle.getPointCount() << '\n';
-        // std::cout << "paddle.getPoint(0).x .y " << paddle.getPoint(0).x << ' ' << paddle.getPoint(0).y <<'\n';
-        // std::cout << "paddle.getPoint(paddle.getPointCount()/4).x .y " << paddle.getPoint(paddle.getPointCount()/4).x << ' ' << paddle.getPoint(paddle.getPointCount()/4).y <<'\n';
-        // std::cout << "paddle.getPoint(paddle.getPointCount()/2).x .y " << paddle.getPoint(paddle.getPointCount()/2).x << ' ' << paddle.getPoint(paddle.getPointCount()/2).y <<'\n';
-        // std::cout << "paddle.getPoint(paddle.getPointCount()/4*3).x .y " << paddle.getPoint(paddle.getPointCount()/4*3).x << ' ' << paddle.getPoint(paddle.getPointCount()/4*3).y <<'\n';
-        // std::cout << '\n';
-
-        // std::cout << "paddle.getPosition().x "<< ball.getPosition().x << '\n';
-        // std::cout << "ball.getPosition().y " << ball.getPosition().y << '\n';
-        // std::cout << "ball.getGlobalBounds().width " << ball.getGlobalBounds().width <<  '\n';
-        // std::cout << "ball.getGlobalBounds().top " << ball.getGlobalBounds().top <<  '\n';
-        // std::cout << "ball.getGlobalBounds().left " << ball.getGlobalBounds().left <<  '\n';
-        // std::cout << "ball.getGlobalBounds().height " << ball.getGlobalBounds().height <<  '\n';
-        // std::cout << "ball.getGlobalBounds().contains(1,1) " << ball.getGlobalBounds().contains(1,1) <<  '\n';
-        // std::cout << "ball.getGlobalBounds()..intersects(ball.getGlobalBounds()) " << ball.getGlobalBounds().intersects(paddle.getGlobalBounds()) <<  '\n';
-        // std::cout << "ball.getPosition().y " << ball.getPointCount() << '\n';
-        // std::cout << "ball.getPoint(0).x .y " << ball.getPoint(0).x << ' ' << ball.getPoint(0).y <<'\n';
-        // std::cout << "ball.getPoint(ball.getPointCount()/4).x .y " << ball.getPoint(ball.getPointCount()/4).x << ' ' << ball.getPoint(ball.getPointCount()/4).y <<'\n';
-        // std::cout << "ball.getPoint(ball.getPointCount()/2).x .y " << ball.getPoint(ball.getPointCount()/2).x << ' ' << ball.getPoint(ball.getPointCount()/2).y <<'\n';
-        // std::cout << "ball.getPoint(ball.getPointCount()/4*3).x .y " << ball.getPoint(ball.getPointCount()/4*3).x << ' ' << ball.getPoint(ball.getPointCount()/4*3).y <<'\n';

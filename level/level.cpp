@@ -70,7 +70,7 @@ Basic_lvel::Basic_lvel(sf::RenderWindow& window, int step)
 {
     paddle = create_paddle();
     ball = create_ball();
-    ball.set_strart_position(paddle.getGlobalBounds());
+    ball.set_to_paddle_position(paddle.getGlobalBounds());
     bricks = create_bricks(step);
     // m_colisions = Colisions();
 }
@@ -99,8 +99,11 @@ State Basic_lvel::run()
     return resolt;
 }
 
+
 void Basic_lvel::Process()
-{}
+{
+}
+
 
 void Basic_lvel::draw()
 {
