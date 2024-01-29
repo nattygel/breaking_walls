@@ -13,6 +13,7 @@ public:
     void move_right();
     void move_left();
     float get_speed();
+    int m_special = 0;
 private:
     int m_life = 3;
     float m_speed = 20.f;
